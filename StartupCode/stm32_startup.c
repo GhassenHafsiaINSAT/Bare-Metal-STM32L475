@@ -208,3 +208,74 @@ void Reset_handler(void){
 void Default_handler(void){    // default handler for all interrupts 
     while(1); 
 }
+
+void NMI_handler(void){
+    while(1);
+} 
+void HardFault_handler(void){
+    while(1);
+} 
+void MemManage_handler(void){
+    while(1);
+}
+void BusFault_handler(void){
+    while(1);
+}
+void UsageFault_handler(void) {
+    while(1);
+}
+void SVCall_handler(void) {
+    while(1);
+} 
+void Debug_handler(void) {
+    while(1);
+} 
+void PendSV_handler(void) {
+    while(1);
+} 
+void SysTick_handler(void){
+    while(1);
+}
+void WWDG_handler(void){
+    while(1);
+} 
+void PVD_PVM_handler(void){
+    while(1);
+}
+void RTC_TAMP_STAMP_handler(void) {
+    while(1);
+} 
+void RTC_WKUP_handler(void) {
+    while(1);
+}
+void FLASH_handler(void) {
+    while(1);
+}
+void RCC_handler(void) {
+    while(1);
+} 
+void EXTI0_handler(void) {
+    while(1);
+}bute__((weak, alias("Default_handler"))); 
+
+void SWPMI1_handler(void){
+    while(1);
+}
+void TSC_handler(void){
+    while(1);
+}
+void LCD_handler(void){
+    while(1);
+}
+void AES_handler(void){
+    while(1);
+}
+void RNG_and_HASH_handler(void){
+    while(1);
+}
+void FPU_handler(void){
+    while(1);
+}
+void HASH_and_CRS_handler(void){
+    while(1);
+}

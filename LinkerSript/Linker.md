@@ -13,14 +13,44 @@
 
 ## Linker scripts commands 
 
-- **ENTRY**
+- **ENTRY**:
+    - This is the entry point address of the elf file
+    - The debugger uses this information to locate the first function to execute 
+    - In out case, "Reset_handler" is the entry point of the application
+    ```ld
+    ENTRY(Reset_handler)
+    ```
 
-- **MEMORY**
+- **MEMORY**:
+    - It allows you to describe the different memories present in the target and their start address and size information 
+    - The linker uses information mentioned in this command to assign addresses to merged sections 
+    ```ld
+    MEMORY 
+    {
+        name(attr) : ORIGIN = origin, LENGTH = length
+    }
+    ```
 
-- **SECTIONS**
+- **SECTIONS**: 
+    - Create different output sections in the final executable 
+    ```ld
+    SECTIONS
+    {
+        .text: 
+        {
 
+        } >(vma) AT>(lma)
+
+        .data: 
+        {
+
+        } >(vma) AT>(lma)
+    }
 - **KEEP**
 
 - **ALIGN**
 
 - **AT>**
+
+## Linker script symbols 
+- . : the current symbol counter 
