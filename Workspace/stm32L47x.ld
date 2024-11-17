@@ -1,4 +1,4 @@
-ENTRY(Reset_handler)
+ENTRY(Reset_handler)    /* Use the Reset_handler as entry point */
 
 MEMORY
 {
@@ -14,19 +14,19 @@ SECTIONS
 {
     .text : 
     {   
-        (.vector_table)
-        *(.text)
-        *(.rodata)
-        _etext = .; // location counter always track vma
+        KEEP(*(.vector_table)) 
+        *(.text)        
+        *(.rodata)      
+        _etext = .; /* location counter always track vma */
 
-    }>FLASH AT>FLASH
+    } > FLASH AT> FLASH
 
     .data : 
     {   
         _sdata = .; 
-        *(.data)
+        *(.data)    
         _edata = .; 
-    }>SRAM1 AT>FLASH
+    } > SRAM1 AT> FLASH
 
     .bss :
     {   
@@ -34,5 +34,5 @@ SECTIONS
         *(.bss)
         _ebss = .; 
 
-    }>SRAM1
+    } > SRAM1
 }

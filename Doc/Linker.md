@@ -53,4 +53,15 @@
 - **AT>**
 
 ## Linker script symbols 
-- . : the current symbol counter 
+- `.` : the current symbol counter 
+
+
+- To analyze an `.elf` file, you can use tools like `arm-none-eabi-readelf` or `arm-none-eabi-objdump`, but there is a better solution is to instruct linker to create a **map file** 
+
+    ```
+    arm-none-eabi-gcc -nostdlib -T linker_script.ld -Wl,-Map = final.map -o final.elf *.o 
+    ```
+
+    - Here as you can see, we used `-nostdlib` to not include standaard library, `-T` to provide the linker with our personnal linker script and finally `-Map` to generate a map file. Adding `-Wl,` is just to make sure to the linker that `-Map=final.map` is a linker argument 
+
+-  
