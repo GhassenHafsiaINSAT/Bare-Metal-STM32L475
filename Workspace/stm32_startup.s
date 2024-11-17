@@ -121,16 +121,78 @@ vectors:
 	.thumb_func
 	.type	Reset_handler, %function
 Reset_handler:
-	@ args = 0, pretend = 0, frame = 0
+	@ args = 0, pretend = 0, frame = 32
 	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	push	{r7}
+	push	{r7, lr}
+	sub	sp, sp, #32
 	add	r7, sp, #0
+	ldr	r2, .L6
+	ldr	r3, .L6+4
+	subs	r3, r2, r3
+	asrs	r3, r3, #2
+	str	r3, [r7, #8]
+	ldr	r3, .L6+4
+	str	r3, [r7, #28]
+	ldr	r3, .L6+8
+	str	r3, [r7, #24]
+	movs	r3, #0
+	str	r3, [r7, #20]
+	b	.L2
+.L3:
+	ldr	r2, [r7, #24]
+	adds	r3, r2, #1
+	str	r3, [r7, #24]
+	ldr	r3, [r7, #28]
+	adds	r1, r3, #1
+	str	r1, [r7, #28]
+	ldrb	r2, [r2]	@ zero_extendqisi2
+	strb	r2, [r3]
+	ldr	r3, [r7, #20]
+	adds	r3, r3, #1
+	str	r3, [r7, #20]
+.L2:
+	ldr	r2, [r7, #20]
+	ldr	r3, [r7, #8]
+	cmp	r2, r3
+	bcc	.L3
+	ldr	r2, .L6+12
+	ldr	r3, .L6+16
+	subs	r3, r2, r3
+	asrs	r3, r3, #2
+	str	r3, [r7, #4]
+	ldr	r3, .L6+16
+	str	r3, [r7, #16]
+	movs	r3, #0
+	str	r3, [r7, #12]
+	b	.L4
+.L5:
+	ldr	r3, [r7, #16]
+	adds	r2, r3, #1
+	str	r2, [r7, #16]
+	movs	r2, #0
+	strb	r2, [r3]
+	ldr	r3, [r7, #12]
+	adds	r3, r3, #1
+	str	r3, [r7, #12]
+.L4:
+	ldr	r2, [r7, #12]
+	ldr	r3, [r7, #4]
+	cmp	r2, r3
+	bcc	.L5
+	bl	main
 	nop
+	adds	r7, r7, #32
 	mov	sp, r7
 	@ sp needed
-	pop	{r7}
-	bx	lr
+	pop	{r7, pc}
+.L7:
+	.align	2
+.L6:
+	.word	_edata
+	.word	_sdata
+	.word	_etext
+	.word	_ebss
+	.word	_sbss
 	.size	Reset_handler, .-Reset_handler
 	.align	1
 	.global	Default_handler
@@ -144,8 +206,8 @@ Default_handler:
 	@ link register save eliminated.
 	push	{r7}
 	add	r7, sp, #0
-.L3:
-	b	.L3
+.L9:
+	b	.L9
 	.size	Default_handler, .-Default_handler
 	.weak	HASH_and_CRS_handler
 	.thumb_set HASH_and_CRS_handler,Default_handler

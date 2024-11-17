@@ -203,6 +203,15 @@ typedef __uint_least64_t uint_least64_t;
 # 10 "stm32_startup.c"
 
 # 10 "stm32_startup.c"
+extern uint32_t _etext;
+extern uint32_t _sdata;
+extern uint32_t _edata;
+extern uint32_t _sbss;
+extern uint32_t _ebss;
+
+
+int main (void);
+
 void Reset_handler(void);
 void Default_hanlder(void);
 
@@ -399,7 +408,28 @@ uint32_t vectors[] __attribute__ ((section(".vector_table"))) = {
 };
 
 void Reset_handler(void){
-    {}
+
+    uint32_t size_data = &_edata - &_sdata;
+
+    uint8_t *pDst_data = (uint8_t*)&_sdata;
+    uint8_t *pSrc_data = (uint8_t*)&_etext;
+
+    for (uint32_t i = 0; i < size_data; i++)
+    {
+        *pDst_data++ = *pSrc_data++;
+    }
+
+    uint32_t size_bss = &_ebss - &_sbss;
+
+    uint8_t *pDst_bss = (uint8_t*)&_sbss;
+
+    for (uint32_t i = 0; i < size_bss; i++)
+    {
+        *pDst_bss++ = 0;
+    }
+
+    main();
+
 }
 
 void Default_handler(void){
