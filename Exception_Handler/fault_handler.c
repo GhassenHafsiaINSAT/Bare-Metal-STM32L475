@@ -27,10 +27,10 @@ void HardFault_Handler(void){
 __attribute__ ((naked)) void MemManage_Handler(void)
 {
     __asm ("MRS r0, MSP"); 
-    __asm ("B MemManage_Handler");
+    __asm ("B MemManage_Handler_c");
 }
 
-void MemManage_Handler(uint32_t *pBaseStackFrame){
+void MemManage_Handler_c(uint32_t *pBaseStackFrame){
 
     printf("Exception: MemManage\n"); 
     int32_t *pCFSR = (int32_t*)0xE000ED28; 
@@ -47,26 +47,26 @@ void MemManage_Handler(uint32_t *pBaseStackFrame){
     printf("The address where the Memroy Management Fault occured: %lx\n", *pMMFAR); 
 
     printf("pBaseStackFrame = %p\n", pBaseStackFrame); 
-    printf("r0 register = %lx", pBaseStackFrame[0]); 
-    printf("r1 register = %lx", pBaseStackFrame[1]); 
-    printf("r2 register = %lx", pBaseStackFrame[2]); 
-    printf("r3 register = %lx", pBaseStackFrame[3]); 
-    printf("r12 register = %lx", pBaseStackFrame[4]); 
-    printf("LR register = %lx", pBaseStackFrame[5]); 
-    printf("PC register = %lx", pBaseStackFrame[6]); 
-    printf("XPSR register = %lx", pBaseStackFrame[7]);
+    printf("r0 register = %08x", pBaseStackFrame[0]); 
+    printf("r1 register = %08x", pBaseStackFrame[1]); 
+    printf("r2 register = %08x", pBaseStackFrame[2]); 
+    printf("r3 register = %08x", pBaseStackFrame[3]); 
+    printf("r12 register = %08x", pBaseStackFrame[4]); 
+    printf("LR register = %08x", pBaseStackFrame[5]); 
+    printf("PC register = %08x", pBaseStackFrame[6]); 
+    printf("XPSR register = %08x", pBaseStackFrame[7]);
 
 
     while (1); 
 }
 
-__attribute__ ((naked)) void BusFault_Handler(void)
+__attribute__ ((naked)) void BusFault_handler(void)
 {
     __asm ("MRS r0, MSP"); 
-    __asm ("B BusFault_Handler");
+    __asm ("B BusFault_Handler_c");
 }
 
-void BusFault_Handler(uint32_t *pBaseStackFrame){
+void BusFault_Handler_c(uint32_t *pBaseStackFrame){
     
     printf("Exception: BusFault\n"); 
     int32_t *pCFSR = (int32_t*)0xE000ED28; 
@@ -79,14 +79,14 @@ void BusFault_Handler(uint32_t *pBaseStackFrame){
     printf("The address where the Bus Fault occured is %lx", *pBFAR);
    
     printf("pBaseStackFrame = %p\n", pBaseStackFrame); 
-    printf("r0 register = %lx", pBaseStackFrame[0]); 
-    printf("r1 register = %lx", pBaseStackFrame[1]); 
-    printf("r2 register = %lx", pBaseStackFrame[2]); 
-    printf("r3 register = %lx", pBaseStackFrame[3]); 
-    printf("r12 register = %lx", pBaseStackFrame[4]); 
-    printf("LR register = %lx", pBaseStackFrame[5]); 
-    printf("PC register = %lx", pBaseStackFrame[6]); 
-    printf("XPSR register = %lx", pBaseStackFrame[7]);
+    printf("r0 register = %08x", pBaseStackFrame[0]); 
+    printf("r1 register = %08x", pBaseStackFrame[1]); 
+    printf("r2 register = %08x", pBaseStackFrame[2]); 
+    printf("r3 register = %08x", pBaseStackFrame[3]); 
+    printf("r12 register = %08x", pBaseStackFrame[4]); 
+    printf("LR register = %08x", pBaseStackFrame[5]); 
+    printf("PC register = %08x", pBaseStackFrame[6]); 
+    printf("XPSR register = %08x", pBaseStackFrame[7]);
 
     while (1); 
 }
@@ -95,12 +95,12 @@ void BusFault_Handler(uint32_t *pBaseStackFrame){
 __attribute__ ((naked)) void UsageFault_Handler(void)
 {
     __asm ("MRS r0, MSP"); 
-    __asm ("B UsageFault_Handler"); 
+    __asm ("B UsageFault_Handler_c"); 
 
 }
 
 
-void UsageFault_Handler(uint32_t *pBaseStackFrame){
+void UsageFault_Handler_c(uint32_t *pBaseStackFrame){
 
     printf("Exception: UsageFault\n"); 
     int32_t *pCFSR = (int32_t*)0xE000ED28; 
@@ -110,14 +110,14 @@ void UsageFault_Handler(uint32_t *pBaseStackFrame){
     else if (CFSR_value & (1<<18)) printf("Invalid state\n");    
 
     printf("pBaseStackFrame = %p\n", pBaseStackFrame); 
-    printf("r0 register = %lx", pBaseStackFrame[0]); 
-    printf("r1 register = %lx", pBaseStackFrame[1]); 
-    printf("r2 register = %lx", pBaseStackFrame[2]); 
-    printf("r3 register = %lx", pBaseStackFrame[3]); 
-    printf("r12 register = %lx", pBaseStackFrame[4]); 
-    printf("LR register = %lx", pBaseStackFrame[5]); 
-    printf("PC register = %lx", pBaseStackFrame[6]); 
-    printf("XPSR register = %lx", pBaseStackFrame[7]); 
+    printf("r0 register = %08x", pBaseStackFrame[0]); 
+    printf("r1 register = %08x", pBaseStackFrame[1]); 
+    printf("r2 register = %08x", pBaseStackFrame[2]); 
+    printf("r3 register = %08x", pBaseStackFrame[3]); 
+    printf("r12 register = %08x", pBaseStackFrame[4]); 
+    printf("LR register = %08x", pBaseStackFrame[5]); 
+    printf("PC register = %08x", pBaseStackFrame[6]); 
+    printf("XPSR register = %08x", pBaseStackFrame[7]); 
 
     while (1); 
 }
