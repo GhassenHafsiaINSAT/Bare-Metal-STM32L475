@@ -1,4 +1,4 @@
-## Sytem Control Block 
+## System Control Block 
 - The system control Block is a hardware component integrated within the Cortex-M4 processor core itself
 
 - It is part of core peripherals, which are mapped into the processor's **system control block** in the memory address space 
