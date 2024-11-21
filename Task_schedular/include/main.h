@@ -1,11 +1,4 @@
-#include <stdio.h>
 #include <stdint.h>
-
-
-void task1_handler(void); 
-void task2_handler(void); 
-void task3_handler(void); 
-void task4_handler(void); 
 
 #define SIZE_TASK_STACK                     1024U
 #define SIZE_SCHEDULAR_STACK                1024U
@@ -19,35 +12,11 @@ void task4_handler(void);
 #define T3_STACK_START                      ((SRAM_END_ADDR) - ((2) * (SIZE_TASK_STACK)))
 #define T4_STACK_START                      ((SRAM_END_ADDR) - ((3) * (SIZE_TASK_STACK)))
 #define SCHEDULAR_STACK_START               ((SRAM_END_ADDR) - ((4) * (SIZE_TASK_STACK)))
+#define MAX_TASK                            4
 
-int main(void){
-    return 0; 
-}
+#define TICK_HZ                             1000U
+#define HSI_CLOCK                           160000000U
+#define SYSTICK_TIM_CLK                     HSI_CLOCK
 
-void task1_handler(void){
-    while(1){
-        printf("This is task1"); 
-    }
-}
+#define DUMMY_XPSR 0X00100000U
 
-void task2_handler(void){
-    while(1){
-        printf("this is task2"); 
-    }
-}
-
-void task3_handler(void){
-    while (1)
-    {
-        printf("this is task3"); 
-    }
-    
-}
-
-void task4_handler(void){
-    while (1)
-    {
-        printf("this is task4");
-    }
-    
-}
